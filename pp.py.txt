@@ -1,0 +1,53 @@
+import streamlit as st
+
+def hitung_kecepatan(jarak_km, waktu_jam):
+    """Menghitung kecepatan rata-rata (km/jam)."""
+    # Rumus: Kecepatan = Jarak / Waktu
+    kecepatan = jarak_km / waktu_jam
+    return kecepatan
+
+# --- Konfigurasi Halaman Streamlit ---
+
+st.title("🚗 Kalkulator Kecepatan Rata-Rata")
+st.markdown("Hitung kecepatan rata-rata Anda dengan memasukkan jarak (km) dan waktu (jam).")
+
+# Menampilkan rumus matematika menggunakan LaTeX
+st.latex(r"v = \frac{s}{t}")
+# 
+
+[Image of the formula for average velocity]
+
+
+# Input Jarak (s)
+jarak = st.number_input(
+    "Masukkan Jarak yang Ditempuh (km):", 
+    min_value=0.0, 
+    value=100.0, 
+    key="jarak_input", 
+    format="%.2f"
+)
+
+# Input Waktu (t)
+waktu = st.number_input(
+    "Masukkan Waktu Tempuh (jam):", 
+    min_value=0.0, 
+    value=2.0, 
+    key="waktu_input", 
+    format="%.2f"
+)
+
+# Tombol untuk memicu perhitungan
+if st.button("Hitung Kecepatan"):
+    
+    # Validasi input: Waktu tidak boleh nol
+    if waktu <= 0:
+        st.error("Waktu tempuh harus lebih besar dari nol untuk menghitung kecepatan.")
+    elif jarak < 0:
+        st.error("Jarak tidak boleh negatif.")
+    else:
+        # Panggil fungsi
+        hasil_kecepatan = hitung_kecepatan(jarak, waktu)
+        
+        # Tampilkan Output
+        st.success(f"**Kecepatan rata-rata Anda adalah: {hasil_kecepatan:.2f} km/jam**")
+        st.info("Catatan: Kecepatan dihitung menggunakan Jarak / Waktu.")
